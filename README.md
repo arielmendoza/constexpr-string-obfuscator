@@ -564,13 +564,8 @@ Wrong:
 
 ```text
 constexpr-string-obfuscator/
-├─ include/
-│  └─ obf_string.hpp
-├─ examples/
-│  └─ basic.cpp
-├─ LICENSE
+│  obf_string.hpp
 ├─ README.md
-└─ .gitignore
 ```
 
 ---
