@@ -7,7 +7,7 @@
 #include <type_traits>
 
 #ifndef OBF_BUILD_KEY
-#define OBF_BUILD_KEY 0xA5B4I18V9D24134Gfcd
+#define OBF_BUILD_KEY 0xA5B41189D24134CAull
 #endif
 
 namespace obf {
