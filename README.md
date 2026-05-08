@@ -1,56 +1,50 @@
 # constexpr-string-obfuscator
 
-A small header-only C++20 library for compile-time string obfuscation.
+<p align="center">
+  <strong>Header-only C++20 compile-time string obfuscation</strong>
+</p>
 
-It transforms string literals at compile time and stores only obfuscated bytes in the final binary. At runtime, the original string is reconstructed only when requested.
+<p align="center">
+  Hide string literals from basic static extraction tools such as <code>strings</code>, hex editors, and simple binary scanners.
+</p>
 
-The goal is to make basic static string extraction harder.
+<p align="center">
+  <img alt="C++20" src="https://img.shields.io/badge/C%2B%2B-20-blue.svg">
+  <img alt="Header Only" src="https://img.shields.io/badge/header--only-yes-brightgreen.svg">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg">
+</p>
 
-This is useful when you do not want readable strings such as internal URLs, API paths, log messages, feature names, user agents, or protocol fragments to appear directly in the compiled executable.
+---
+
+## Overview
+
+`constexpr-string-obfuscator` is a small **header-only C++20 library** that transforms string literals at compile time and stores only obfuscated data in the final binary.
+
+At runtime, the original string is reconstructed only when requested.
+
+This helps prevent readable strings such as:
+
+- Internal URLs
+- API paths
+- User agents
+- Feature names
+- Log messages
+- Protocol fragments
+- Internal identifiers
+
+from appearing directly inside the compiled executable.
+
+---
 
 ## Important Security Notice
 
-This library provides obfuscation, not secure secret storage.
+> [!IMPORTANT]
+> This library provides **obfuscation**, not secure secret storage.
 
-If your program can recover a string at runtime, a determined reverse engineer can recover it too.
+If your program can recover a string at runtime, then a determined reverse engineer can recover it too.
 
-This project is designed to protect against casual static inspection, such as running `strings` on a binary or searching it with a hex editor. It does not protect against debugging, memory inspection, API hooking, runtime instrumentation, or advanced reverse engineering.
+This project is designed to protect against **casual static inspection**, such as:
 
-Do not use this library to protect passwords, private keys, long-lived API tokens, production credentials, encryption keys, or any value that must remain secret against an attacker who can run or inspect the program.
-
-## Features
-
-- Header-only.
-- C++20.
-- Compile-time string transformation.
-- Supports narrow and wide strings:
-  - `char`
-  - `wchar_t`
-  - `char16_t`
-  - `char32_t`
-- Supports:
-  - `std::string`
-  - `std::wstring`
-  - `.c_str()`
-  - `.str()`
-- Per-use seed variation with `__COUNTER__`.
-- Optional external build key through `OBF_BUILD_KEY`.
-- Runtime buffer wiping on destruction.
-- MSVC-friendly implementation.
-- No external dependencies.
-
-## What It Protects Against
-
-This library helps prevent plaintext strings from appearing directly in the compiled binary.
-
-It can make the following harder:
-
-- Running `strings app.exe`.
-- Searching the executable with a hex editor.
-- Basic static scanning for known text.
-- Casual extraction of URLs, routes, log messages, user agents, or internal names.
-
-Example:
-
-```cpp
-std::wstring appId = OBF(L"TEST_APP_ID");
+```bash
+strings app.exe
